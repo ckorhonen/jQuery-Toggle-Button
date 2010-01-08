@@ -1,0 +1,32 @@
+JQUERY TOGGLE BUTTON
+====================
+
+A simple plugin for toggling the content and functionality of a link or button 
+element.
+
+Useful when disabling links or submit buttons, or when responding to a user's 
+interaction. 
+
+E.g. User clicks a button, text changes to inform them that something is going 
+on, and button is disabled to prevent further clicks.
+
+USAGE:
+$('#element).toggleButton();
+
+Upon first call, element will go to toggled state. Second call will restore to
+normal.
+
+Parameters can also be passed:
+
+$('#element').toggleButton({ text: 'Processing...',
+                             className: 'disabled', 
+                             preventClick: true
+                          });
+
+text      - The text value which replaces the button text in the toggled state.
+className - CSS class name corresponding to the toggled state
+preventClick  - Prevent clicks once toggled.
+
+
+License:
+http://www.opensource.org/licenses/mit-license.php
