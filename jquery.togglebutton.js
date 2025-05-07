@@ -7,8 +7,8 @@
 * http://www.opensource.org/licenses/mit-license.php
 */
 
-jQuery.fn.toggleButton = function(settings) {
-  settings = jQuery.extend({
+$.fn.toggleButton = function(settings) {
+  settings = $.extend({
     text: "Please Wait...",
     className: "disabled",
     preventClick: true
@@ -16,28 +16,36 @@ jQuery.fn.toggleButton = function(settings) {
 
   var originalText = $(this).text();
   if(!originalText){
-    originalText = $(this).attr('value');
+    originalText = $(this).val(); // Use .val() for input elements
   }
   
   var isDisabled = $(this).hasClass(settings.className);
   
-  $(this).toggleClass(settings.className).text(settings.text).attr('value', settings.text);
-  
-  try{  
-    if(!$(this).data('events').change){
-      $(this).bind('change',function(e){
-        if(!$(e.target).hasClass(settings.className)){
-           $(e.target).text(originalText).attr('value',originalText);
-        }
-      });
-    }
-  } catch(e){ //if no object data exists 
+  // Toggle class and update text/value
+  $(this).toggleClass(settings.className);
+  if ($(this).is('input, textarea, button')) {
+    $(this).val(settings.text);
+  } else {
+    $(this).text(settings.text);
   }
   
-  if(!isDisabled && settings.preventClick){
-    $(this).attr('disabled', 'disabled');
+  // Ensure change handler is bound once using .off().on()
+  $(this).off('change.toggleButton').on('change.toggleButton', function(e) {
+    // Check if the target still has the disabled class or if it's the button itself
+    if (!$(e.target).hasClass(settings.className)) {
+       if ($(e.target).is('input, textarea, button')) {
+        $(e.target).val(originalText);
+      } else {
+        $(e.target).text(originalText);
+      }
+    }
+  });
+  
+  // Use .prop() for disabled property
+  if (!isDisabled && settings.preventClick) {
+    $(this).prop('disabled', true);
   } else {
-    $(this).removeAttr('disabled');
+    $(this).prop('disabled', false);
   }
   
   $(this).trigger('change');
