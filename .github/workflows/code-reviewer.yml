@@ -1,0 +1,23 @@
+# Managed by the code-reviewer GitHub App setup PR.
+# The action is pinned to an immutable commit SHA; bump it deliberately.
+name: Code Reviewer
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+jobs:
+  code_review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out PR
+        uses: actions/checkout@v4
+      - name: Run code reviewer
+        uses: ckorhonen/code-reviewer@aeaffe6b9d61755f8b08486ad4b6915e3ae3bc23
+        with:
+          openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
