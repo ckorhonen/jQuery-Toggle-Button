@@ -1,0 +1,7 @@
+# Repository guide
+
+`jquery.togglebutton.js` defines `$.fn.toggleButton`; `togglebutton.js` is a separate vanilla JavaScript implementation. `README` documents the jQuery interface and options. Preserve both public interfaces and license attribution; do not assume the implementations have identical event-listener behavior.
+
+There is no manifest, bundled jQuery, HTML runner, build, lint, automated test, or CI setup. For syntax use `node --check jquery.togglebutton.js` and/or `node --check togglebutton.js`. For behavior, use a disposable browser fixture with the relevant implementation (and compatible jQuery for the plugin). Exercise toggling twice, original label/value restoration, custom text/class, `preventClick`, repeated calls, and link/input/button handling. Syntax alone does not validate DOM events or click suppression.
+
+Start with `git status --short`, preserve unrelated edits, and carry authorized local changes through focused checks and repair. Keep README examples aligned with the affected public API without introducing a framework for a small fix. Routine reversible choices can proceed directly; external publishing needs authorization. If browser/dependency setup is unavailable, name that exact gap and complete independent source checks. Prose-only work needs path/example review and `git diff --check`; report changed paths, actual results, and unverified DOM behavior.
